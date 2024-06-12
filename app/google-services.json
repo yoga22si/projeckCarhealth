@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "496442382688",
+    "project_id": "projeckcarhealth-login",
+    "storage_bucket": "projeckcarhealth-login.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496442382688:android:6ce625a9d22f1d00882605",
+        "android_client_info": {
+          "package_name": "com.example.projeckcarhealth"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvkK-Tgo_FIqg712jP-HUbDuXmsqRCPYY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

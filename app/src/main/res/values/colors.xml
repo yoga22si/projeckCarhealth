@@ -1,0 +1,37 @@
+<resources>
+    <!-- Warna dasar -->
+    <color name="blue">#0000FF</color> <!-- Warna biru untuk tombol login -->
+    <color name="white">#FFFFFF</color> <!-- Warna putih -->
+    <color name="black">#000000</color> <!-- Warna hitam -->
+    <color name="red">#FF0000</color> <!-- Warna merah -->
+    <color name="green">#00FF00</color> <!-- Warna hijau -->
+    <color name="yellow">#FFFF00</color> <!-- Warna kuning -->
+    <color name="cyan">#00FFFF</color> <!-- Warna cyan -->
+    <color name="magenta">#FF00FF</color> <!-- Warna magenta -->
+
+    <!-- Nuansa abu-abu -->
+    <color name="gray">#808080</color> <!-- Warna abu-abu -->
+    <color name="dark_gray">#A9A9A9</color> <!-- Warna abu-abu gelap -->
+    <color name="light_gray">#D3D3D3</color> <!-- Warna abu-abu terang -->
+
+    <!-- Warna tambahan -->
+    <color name="orange">#FFA500</color> <!-- Warna oranye -->
+    <color name="purple">#800080</color> <!-- Warna ungu -->
+    <color name="pink">#FFC0CB</color> <!-- Warna pink -->
+    <color name="brown">#A52A2A</color> <!-- Warna cokelat -->
+    <color name="lime">#00FF00</color> <!-- Warna lime -->
+    <color name="navy">#000080</color> <!-- Warna navy -->
+    <color name="teal">#008080</color> <!-- Warna teal -->
+    <color name="olive">#808000</color> <!-- Warna olive -->
+    <color name="maroon">#800000</color> <!-- Warna maroon -->
+
+    <!-- Warna tambahan lainnya -->
+    <color name="light_blue">#ADD8E6</color> <!-- Warna biru terang -->
+    <color name="dark_blue">#00008B</color> <!-- Warna biru gelap -->
+    <color name="light_green">#90EE90</color> <!-- Warna hijau terang -->
+    <color name="dark_green">#006400</color> <!-- Warna hijau gelap -->
+    <color name="light_red">#FF6347</color> <!-- Warna merah terang -->
+    <color name="dark_red">#8B0000</color> <!-- Warna merah gelap -->
+    <color name="light_yellow">#FFFFE0</color> <!-- Warna kuning terang -->
+    <color name="dark_yellow">#FFD700</color> <!-- Warna kuning gelap -->
+</resources>
