@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1085754084966",
+    "project_id": "carehealth-cd539",
+    "storage_bucket": "carehealth-cd539.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085754084966:android:87894ee7f341290552e7a7",
+        "android_client_info": {
+          "package_name": "com.example.projeckcarhealth"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqS1TG8xE-52nPWTvbOjORFIgQqGfRoVY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

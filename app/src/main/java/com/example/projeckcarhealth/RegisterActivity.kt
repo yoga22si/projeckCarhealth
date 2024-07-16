@@ -2,19 +2,23 @@ package com.example.projeckcarhealth
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var etUsername: EditText
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
     private lateinit var btnRegister: Button
-    private lateinit var database: DatabaseReference
+    private lateinit var userTypeSpinner: Spinner
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,36 +28,63 @@ class RegisterActivity : AppCompatActivity() {
         etEmail = findViewById(R.id.Email)
         etPassword = findViewById(R.id.Password)
         btnRegister = findViewById(R.id.registerButton)
-        database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://projeckcarhealth-login-default-rtdb.firebaseio.com/")
+        userTypeSpinner = findViewById(R.id.userTypeSpinner)
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
         btnRegister.setOnClickListener {
             val username = etUsername.text.toString()
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
-
-            // Contoh sederhana, hanya mencetak username, email, dan password ke konsol
-            println("Username: $username, Email: $email, Password: $password")
+            val userType = userTypeSpinner.selectedItem.toString()
 
             // Validasi input
             if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(applicationContext, "Ada Data Yang Masih Kosong!!", Toast.LENGTH_SHORT).show()
+            } else if (!email.endsWith("@gmail.com")) {
+                Toast.makeText(applicationContext, "Email harus menggunakan domain @gmail.com", Toast.LENGTH_SHORT).show()
             } else {
-                // Simpan data ke Firebase Realtime Database
-                saveUserData(username, email, password)
-
-                // Intent untuk berpindah ke halaman lain setelah registrasi
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                // Daftar pengguna dengan Firebase Authentication
+                registerUser(username, email, password, userType)
             }
         }
     }
 
-    private fun saveUserData(username: String, email: String, password: String) {
-        // Simpan data pengguna ke Firebase Realtime Database
-        val userData = UserData(username, email, password)
-        database.child("users").child(username).setValue(userData)
+    private fun registerUser(username: String, email: String, password: String, userType: String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    if (user != null) {
+                        val userId = user.uid
+                        val userMap = hashMapOf(
+                            "username" to username,
+                            "email" to email,
+                            "userType" to userType
+                        )
+
+                        // Simpan data pengguna di Firestore
+                        firestore.collection("users").document(userId).set(userMap)
+                            .addOnSuccessListener {
+                                Toast.makeText(applicationContext, "Registrasi berhasil. Silakan login.", Toast.LENGTH_SHORT).show()
+                                auth.signOut()
+
+                                // Arahkan pengguna ke halaman login
+                                val intent = Intent(this, LoginActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                            .addOnFailureListener { exception ->
+                                Log.e("RegisterActivity", "Gagal menyimpan data pengguna", exception)
+                                Toast.makeText(applicationContext, "Gagal menyimpan data pengguna: ${exception.message}", Toast.LENGTH_SHORT).show()
+                            }
+                    }
+                } else {
+                    task.exception?.let { exception ->
+                        Log.e("RegisterActivity", "Registrasi gagal: ", exception)
+                        Toast.makeText(applicationContext, "Registrasi gagal: ${exception.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
     }
 }
-
-// Model data untuk menyimpan informasi pengguna
-data class UserData(val username: String, val email: String, val password: String)

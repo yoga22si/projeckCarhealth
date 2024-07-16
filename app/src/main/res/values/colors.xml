@@ -34,4 +34,5 @@
     <color name="dark_red">#8B0000</color> <!-- Warna merah gelap -->
     <color name="light_yellow">#FFFFE0</color> <!-- Warna kuning terang -->
     <color name="dark_yellow">#FFD700</color> <!-- Warna kuning gelap -->
+    <color name="biru_gelap">#1F41BB</color>
 </resources>

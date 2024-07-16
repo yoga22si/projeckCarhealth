@@ -1,111 +1,119 @@
 package com.example.projeckcarhealth
 
-import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.net.Uri
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.storage.FirebaseStorage
-import java.io.ByteArrayOutputStream
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-private const val REQUEST_CAMERA = 123
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ProfilFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
-    private lateinit var imageUri: Uri
-    private lateinit var ivProfile: ImageView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var imageViewProfile: ImageView
+    private lateinit var editTextDisplayName: EditText
+    private lateinit var editTextEmail: EditText
+    private lateinit var buttonUpdateProfile: Button
+    private lateinit var progressBarUpdate: ProgressBar
+    private lateinit var buttonLogout: Button
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_profil, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_profil, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        ivProfile = view.findViewById(R.id.imageViewProfile)
+        imageViewProfile = view.findViewById(R.id.imageViewProfile)
+        editTextDisplayName = view.findViewById(R.id.editTextDisplayName)
+        editTextEmail = view.findViewById(R.id.editTextEmail)
+        buttonUpdateProfile = view.findViewById(R.id.buttonUpdateProfile)
+        progressBarUpdate = view.findViewById(R.id.progressBarUpdate)
+        buttonLogout = view.findViewById(R.id.buttonLogout)
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+        sharedPref = requireActivity().getSharedPreferences("UserPrefs", AppCompatActivity.MODE_PRIVATE)
 
-        ivProfile.setOnClickListener {
-            intentCamera()
+        // Load user data from SharedPreferences
+        loadUserData()
+
+        buttonUpdateProfile.setOnClickListener {
+            updateProfile()
         }
 
-        val buttonLogout: Button = view.findViewById(R.id.buttonLogout)
         buttonLogout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            val intent = Intent(activity, LoginActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
+            logout()
         }
+
+        return view
     }
 
-    private fun intentCamera() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
-            activity?.packageManager?.let {
-                intent.resolveActivity(it)?.also {
-                    startActivityForResult(intent, REQUEST_CAMERA)
+    private fun loadUserData() {
+        val username = sharedPref.getString("username", "")
+        val email = sharedPref.getString("email", "")
+
+        editTextDisplayName.setText(username)
+        editTextEmail.setText(email)
+    }
+
+    private fun updateProfile() {
+        val userId = sharedPref.getString("userId", "") ?: return
+        val newUsername = editTextDisplayName.text.toString()
+        val newEmail = editTextEmail.text.toString()
+
+        if (newUsername.isEmpty() || newEmail.isEmpty()) {
+            Toast.makeText(requireContext(), "Nama pengguna dan email tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        progressBarUpdate.visibility = View.VISIBLE
+
+        val userMap = hashMapOf(
+            "username" to newUsername,
+            "email" to newEmail
+        )
+
+        firestore.collection("users").document(userId).update(userMap as Map<String, Any>)
+            .addOnSuccessListener {
+                progressBarUpdate.visibility = View.GONE
+                Toast.makeText(requireContext(), "Profil berhasil diperbarui", Toast.LENGTH_SHORT).show()
+                // Update SharedPreferences
+                with(sharedPref.edit()) {
+                    putString("username", newUsername)
+                    putString("email", newEmail)
+                    apply()
                 }
             }
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
-            val imgBitmap = data?.extras?.get("data") as Bitmap
-            uploadImage(imgBitmap)
-        }
-    }
-
-    private fun uploadImage(imgBitmap: Bitmap) {
-        val baos = ByteArrayOutputStream()
-        val ref = FirebaseStorage.getInstance().reference.child("img/${FirebaseAuth.getInstance().currentUser?.uid}")
-        imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val imageData = baos.toByteArray()
-
-        ref.putBytes(imageData)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    ref.downloadUrl.addOnCompleteListener { taskUri ->
-                        taskUri.result?.let { uri ->
-                            imageUri = uri
-                            ivProfile.setImageBitmap(imgBitmap)
-                            // Lakukan sesuatu dengan imageUri di sini, misalnya menyimpannya ke database
-                        }
-                    }
-                } else {
-                    // Penanganan ketika pengunggahan gagal
-                }
+            .addOnFailureListener { exception ->
+                progressBarUpdate.visibility = View.GONE
+                Toast.makeText(requireContext(), "Gagal memperbarui profil: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfilFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun logout() {
+        auth.signOut()
+
+        // Clear SharedPreferences
+        with(sharedPref.edit()) {
+            putBoolean("isLoggedIn", false)
+            // Clear other user-related data if needed
+            apply()
+        }
+
+        // Redirect to MainActivity
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        requireActivity().finish()
     }
 }

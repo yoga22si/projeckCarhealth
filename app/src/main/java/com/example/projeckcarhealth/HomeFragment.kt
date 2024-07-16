@@ -2,6 +2,7 @@ package com.example.projeckcarhealth
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,27 +24,29 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Menambahkan onClickListener ke tombol pada FragmentHomeBinding
-        binding.buttonKusioner.setOnClickListener {
-            // Navigasi ke fragment KusionerFragment
-            val i = Intent(context, Kusioner::class.java)
-            startActivity(i)
-//            val action = HomeFragmentDirections.actionHomeFragmentToKusionerFragment()
-//            findNavController().navigate(action)
+        // Set up click listeners
+        binding.arrowImageView.setOnClickListener {
+            Log.d("HomeFragment", "Arrow Image View Clicked")
+            val artikelFragment = ArtikelFragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.flFragment, artikelFragment)
+                .addToBackStack(null)
+                .commit()
         }
-    }
 
-    class HomeFragmentDirections {
-        companion object {
-            fun actionHomeFragmentToKusionerFragment(): androidx.navigation.NavDirections {
-                // Mengembalikan aksi navigasi dari HomeFragment ke KusionerFragment
-                return HomeFragmentDirections.actionKusionerFragment()
-            }
+        binding.btnChatConsultant.setOnClickListener {
+            Log.d("HomeFragment", "Chat Consultant Button Clicked")
+            val intent = Intent(activity, ConsultantActivity::class.java)
+            startActivity(intent)
+        }
 
-            private fun actionKusionerFragment(): androidx.navigation.NavDirections {
-                // Menggunakan Safe Args untuk membuat aksi navigasi dari HomeFragment ke KusionerFragment
-                return HomeFragmentDirections.actionKusionerFragment()
-            }
+        binding.arrowImageView.setOnClickListener {
+            Log.d("HomeFragment", "View Articles Button Clicked")
+            val artikelFragment = ArtikelFragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.flFragment, artikelFragment)
+                .addToBackStack(null)
+                .commit()
         }
     }
 

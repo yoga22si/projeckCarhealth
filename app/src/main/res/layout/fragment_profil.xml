@@ -59,7 +59,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"/>
 
-    <!-- Progress Bar untuk menampilkan loading saat update profil -->
     <ProgressBar
         android:id="@+id/progressBarUpdate"
         android:layout_width="wrap_content"
