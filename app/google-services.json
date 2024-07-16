@@ -1,26 +1,45 @@
 {
   "project_info": {
-    "project_number": "496442382688",
-    "project_id": "projeckcarhealth-login",
-    "storage_bucket": "projeckcarhealth-login.appspot.com"
+    "project_number": "171277301393",
+    "firebase_url": "https://stock-barang-f964c-default-rtdb.firebaseio.com",
+    "project_id": "stock-barang-f964c",
+    "storage_bucket": "stock-barang-f964c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:496442382688:android:6ce625a9d22f1d00882605",
+        "mobilesdk_app_id": "1:171277301393:android:37d71a959f39ffa7c1b130",
         "android_client_info": {
           "package_name": "com.example.projeckcarhealth"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "171277301393-gqa03ajf83dpgeaunjifo63tk5p6r101.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.projeckcarhealth",
+            "certificate_hash": "5bbc11b8402946d97aa9225e686b4b3d2c500c7a"
+          }
+        },
+        {
+          "client_id": "171277301393-nvba7notm6j5imbhb742ln6altka42s3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyCvkK-Tgo_FIqg712jP-HUbDuXmsqRCPYY"
+          "current_key": "AIzaSyCzBjRnkxJCeepQlwNu3CRPnpHHRUosQME"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "171277301393-gsc91lr6kjmpulc0b2vlp1kfrheo80ks.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

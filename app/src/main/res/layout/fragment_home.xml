@@ -1,19 +1,21 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
-    <!-- Logo CarHealth -->
+    <!-- Logo CareHealth -->
     <ImageView
-        android:id="@+id/logocr"
-        android:layout_width="150dp"
+        android:id="@+id/logoCareHealth"
+        android:layout_width="wrap_content"
         android:layout_height="64dp"
         android:src="@drawable/logocr"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"/>
 
     <!-- Garis -->
     <View
@@ -21,93 +23,437 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="#000000"
-        app:layout_constraintTop_toBottomOf="@id/logocr"
+        app:layout_constraintTop_toBottomOf="@id/logoCareHealth"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Text 1 -->
     <TextView
-        android:id="@+id/text_below_line"
+        android:id="@+id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="solusi kesehatan Terlengkap"
+        android:text="Solusi Kesehatan Terlengkap"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintTop_toBottomOf="@id/line"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/line" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
 
     <!-- Text 2 -->
     <TextView
-        android:id="@+id/text_below_line2"
-        android:layout_width="wrap_content"
+        android:id="@+id/text2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="update informasi seputar kesehatan. Semua bisa di CareHealth"
+        android:text="Chat dokter, kunjungi rumah sakit, beli obat, cek lab dan update informasi seputar kesehatan, semua bisa di CareHealth!"
         android:textColor="#000000"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/text_below_line"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/text1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="16dp"/>
 
-    <!-- Gambar 1 -->
-    <ImageView
-        android:id="@+id/image_1"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/dokter"
-        app:layout_constraintTop_toBottomOf="@id/text_below_line2"
+    <!-- Chat Dokter -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/chatDokterCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/text2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/image_2"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintEnd_toStartOf="@id/tokoKesehatanCard"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        android:layout_margin="8dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp"
+        app:cardUseCompatPadding="true">
 
-    <!-- Gambar 2 -->
-    <ImageView
-        android:id="@+id/image_2"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/notifikasi"
-        app:layout_constraintTop_toBottomOf="@id/text_below_line2"
-        app:layout_constraintStart_toEndOf="@id/image_1"
-        app:layout_constraintEnd_toStartOf="@id/image_3"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:id="@+id/btnChatConsultant">
 
-    <!-- Gambar 3 -->
-    <ImageView
-        android:id="@+id/image_3"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/rumahsakit"
-        app:layout_constraintTop_toBottomOf="@id/text_below_line2"
-        app:layout_constraintStart_toEndOf="@id/image_2"
+            <ImageView
+                android:id="@+id/chatkonsultan"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/chatkonsultan"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Chat konsultan"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Toko Kesehatan -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/tokoKesehatanCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/text2"
+        app:layout_constraintStart_toEndOf="@id/chatDokterCard"
+        app:layout_constraintEnd_toStartOf="@id/buatJanjiRSCard"
+        android:layout_margin="8dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/obatkesehatan"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Toko Kesehatan"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:gravity="center"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Buat Janji RS -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/buatJanjiRSCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/text2"
+        app:layout_constraintStart_toEndOf="@id/tokoKesehatanCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="8dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/buatjanjirs"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Buat Janji Rumah Sakit"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:gravity="center"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Asuransi Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/asuransiCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/chatDokterCard"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginHorizontal="16dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp"
+        app:cardUseCompatPadding="true">
 
-    <Button
-        android:id="@+id/buttonKusioner"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/artikel" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:paddingStart="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="membaca artikel hidup sehat "
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Carehealth mempunyai banyak artikel yang sangat membantu kalian mejaga kesehatan "
+                    android:textColor="#000000"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/arrowImageView"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/arrow" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Layanan Khusus -->
+    <TextView
+        android:id="@+id/layananKhususTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kusioner"
+        android:text="Layanan Khusus"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/asuransiCard"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"/>
 
-    <!-- Fragment Container -->
-    <FrameLayout
-        android:id="@+id/flFragment"
+    <GridLayout
+        android:id="@+id/gridLayananKhusus"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        android:alignmentMode="alignMargins"
+        android:columnCount="4"
+        android:columnOrderPreserved="false"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/layananKhususTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Layanan Kesehatan Ibu & Anak -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/cekstres"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="cek stres"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <!-- Layanan Gigi -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/jadwalkontrol"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="jadwal kontrol"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <!-- Layanan Jantung -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/jadwalolahraga"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="jadwal olahraga"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <!-- Layanan Mata -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/kalkulatorbmi" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="kalkulator BMI"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:gravity="center"/>
+        </LinearLayout>
+        <!-- Layanan THT -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/polatidur"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="pola tidur"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <!-- Layanan Kulit -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/polamakan"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="pola makan"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <!-- Layanan Bedah -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="34dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/tescovid" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="tes covid"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <!-- Layanan Saraf -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/layanan"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Layanan"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:gravity="center"/>
+        </LinearLayout>
+    </GridLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

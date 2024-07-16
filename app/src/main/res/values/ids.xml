@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="userTypeSpinner" type="id" />
+    <item name="Username" type="id" />
+    <item name="Email" type="id" />
+    <item name="Password" type="id" />
+    <item name="registerButton" type="id" />
+    <item name="alreadyHaveAccount" type="id" />
+</resources>

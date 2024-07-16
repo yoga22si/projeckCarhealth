@@ -21,6 +21,10 @@ class BerandaActivity : AppCompatActivity() {
         bottomNavigationView = findViewById(R.id.bottomView)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
+                R.id.home -> {
+                    replaceFragment(homeFragment)
+                    true
+                }
                 R.id.menu -> {
                     replaceFragment(menuFragment)
                     true
@@ -33,22 +37,19 @@ class BerandaActivity : AppCompatActivity() {
                     replaceFragment(profilFragment)
                     true
                 }
-                R.id.home -> {
-                    replaceFragment(homeFragment)
-                    true
-                }
-                else -> {
-                    // Handle unknown item ID
-                    return@setOnNavigationItemSelectedListener true
-                }
+                else -> false
             }
         }
 
         // Set default fragment
-        replaceFragment(homeFragment)
+        if (savedInstanceState == null) {
+            replaceFragment(homeFragment)
+        }
     }
 
     private fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.flFragment, fragment).commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.flFragment, fragment)
+            .commit()
     }
 }

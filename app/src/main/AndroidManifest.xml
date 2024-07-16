@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Application -->
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +19,7 @@
         android:theme="@style/Theme.ProjeckCarhealth"
         tools:targetApi="31">
 
+        <!-- Activities -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -21,30 +28,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Kusioner" android:exported="true"/>
 
-        <activity android:name=".LoginActivity" android:exported="true">
+        <activity android:name=".LoginActivity" android:exported="true"/>
+        <activity android:name=".RegisterActivity" android:exported="true"/>
+        <activity android:name=".BerandaActivity" android:exported="true"/>
+        <activity android:name=".MenuFragment" android:exported="true"/>
+        <activity android:name=".PesanFragment" android:exported="true"/>
+        <activity android:name=".ProfilFragment" android:exported="true"/>
+        <activity android:name=".ConsultantActivity" android:exported="true"/>
+        <activity android:name=".ChatActivity" android:exported="true"/>
 
-        </activity>
-        <activity android:name=".RegisterActivity" android:exported="true">
+        <!-- FCM Service -->
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
-        </activity>
-        <activity android:name=".BerandaActivity" android:exported="true">
-
-        </activity>
-        <activity android:name=".MenuFragment" android:exported="true">
-
-        </activity>
-        <activity android:name=".PesanFragment" android:exported="true">
-
-        </activity>
-        <activity android:name=".ProfilFragment" android:exported="true">
-
-        </activity>
-        <activity android:name=".KusionerFragment" android:exported="true">
-
-        </activity>
-
+        <!-- Broadcast Receiver for notifications (optional, if used) -->
+        <receiver
+            android:name=".MyFirebaseBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </receiver>
 
     </application>
 
